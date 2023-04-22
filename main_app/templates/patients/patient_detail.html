@@ -18,7 +18,10 @@
             <div>
                 <h1>Medications</h1>
                 {% for medication in patient.medication_set.all %}
-                    <p>{{ medication.name }}</p>
+                    <h3>{{ medication.name }}</h3>
+                    {% for dose in medication.dose_set.all %}
+                    <p>{{ dose.amount }} {{ dose.unit }}</p>
+                    {% endfor %}
                 {% endfor %}
             </div>
 
