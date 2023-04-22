@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Patient
 
@@ -31,3 +33,12 @@ def patient_list (request) :
     return render(request, 'patients/patient_list.html', {
         'patients': patients
     })
+
+class PatientCreate (LoginRequiredMixin, CreateView) :
+    model = Patient
+    fields = ('name', 'species', 'dob')
+    template_name = 'patients/patient_form.html'
+
+    def form_valid (self, form) :
+        form.instance.user = self.request.user
+        return super().form_valid(form)
