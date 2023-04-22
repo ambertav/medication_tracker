@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
+from .models import Patient
 
 # Create your views here.
 
 def home (request) :
-    return HttpResponse('Hello world')
+    return render(request, 'home.html')
 
 def signup (request) :
     # handling POST request
@@ -22,4 +23,11 @@ def signup (request) :
     form = UserCreationForm()
     return render(request, 'registration/signup.html', {
         'form': form
+    })
+
+@login_required
+def patient_list (request) :
+    patients = Patient.objects.filter(user=request.user).order_by('name')
+    return render(request, 'patients/patient_list.html', {
+        'patients': patients
     })
