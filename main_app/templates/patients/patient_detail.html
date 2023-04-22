@@ -1,22 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Patients</title>
+    <title>Patient</title>
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Patients</h1>
+    <h1>Patient</h1>
 
-    {% for patient in patients %}
-        <a href="{% url 'patient_detail' patient.id %}">
             <div>
                 <h3>{{ patient.name }}</h3>
                 <p>{{ patient.species }}</p>
                 <p>{{ patient.dob }}</p>
             </div>
-        </a>
-    {% endfor %}
 
 {% endblock %}

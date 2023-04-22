@@ -34,6 +34,13 @@ def patient_list (request) :
         'patients': patients
     })
 
+@login_required
+def patient_detail (request, patient_id) :
+    patient = Patient.objects.filter(user=request.user).get(id=patient_id)
+    return render(request, 'patients/patient_detail.html', {
+        'patient': patient
+    })
+
 class PatientCreate (LoginRequiredMixin, CreateView) :
     model = Patient
     fields = ('name', 'species', 'dob')
