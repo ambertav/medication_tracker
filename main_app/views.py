@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, ModelFormMixin
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Patient, Medication
+from .models import Patient, Medication, Dose
+from .forms import MedForm, DoseInlineFormset
 
 # Create your views here.
 
+# general views
 def home (request) :
     return render(request, 'home.html')
 
@@ -27,6 +29,8 @@ def signup (request) :
         'form': form
     })
 
+
+# patient views
 @login_required
 def patient_list (request) :
     patients = Patient.objects.filter(user=request.user).order_by('name')
@@ -63,3 +67,25 @@ class PatientDelete (LoginRequiredMixin, DeleteView) :
 
     def get_queryset (self) :
         return Patient.objects.filter(user=self.request.user)
+    
+
+# medication views
+def medication_create (request) :
+    # handling POST request
+    if request.method == 'POST' :
+        dose_form = DoseInlineFormset(request.POST)
+        med_form = MedForm(request.POST)
+        if med_form.is_valid() and dose_form.is_valid () :
+            med_form.instance.user = request.user
+            instance = med_form.save()
+            dose_form.instance = instance
+            dose_form.save()
+            return redirect('patient_list')
+
+    # handling GET request
+    med_form = MedForm()
+    dose_form = DoseInlineFormset()
+    return render(request, 'medications/medication_form.html', {
+        'med_form': med_form,
+        'dose_form': dose_form,
+    })
