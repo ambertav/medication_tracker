@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -46,6 +46,13 @@ class PatientCreate (LoginRequiredMixin, CreateView) :
 class PatientUpdate (LoginRequiredMixin, UpdateView) :
     fields = ('name', 'species', 'dob')
     template_name = 'patients/patient_form.html'
+
+    def get_queryset (self) :
+        return Patient.objects.filter(user=self.request.user)
+    
+class PatientDelete (LoginRequiredMixin, DeleteView) :
+    success_url = '/patients/'
+    template_name = 'patients/patient_confirm_delete.html'
 
     def get_queryset (self) :
         return Patient.objects.filter(user=self.request.user)
