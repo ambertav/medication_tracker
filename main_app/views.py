@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Patient
+from .models import Patient, Medication
 
 # Create your views here.
 
@@ -38,7 +38,7 @@ def patient_list (request) :
 def patient_detail (request, patient_id) :
     patient = Patient.objects.filter(user=request.user).get(id=patient_id)
     return render(request, 'patients/patient_detail.html', {
-        'patient': patient
+        'patient': patient,
     })
 
 class PatientCreate (LoginRequiredMixin, CreateView) :

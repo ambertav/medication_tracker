@@ -15,4 +15,11 @@
                 <p>{{ patient.dob }}</p>
             </div>
 
+            <div>
+                <h1>Medications</h1>
+                {% for medication in patient.medication_set.all %}
+                    <p>{{ medication.name }}</p>
+                {% endfor %}
+            </div>
+
 {% endblock %}
