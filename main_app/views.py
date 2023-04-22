@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -42,3 +42,10 @@ class PatientCreate (LoginRequiredMixin, CreateView) :
     def form_valid (self, form) :
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+class PatientUpdate (LoginRequiredMixin, UpdateView) :
+    fields = ('name', 'species', 'dob')
+    template_name = 'patients/patient_form.html'
+
+    def get_queryset (self) :
+        return Patient.objects.filter(user=self.request.user)
