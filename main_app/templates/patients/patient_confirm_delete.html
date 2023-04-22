@@ -11,7 +11,7 @@
 <form method="POST">
     {% csrf_token %}
     <input type="submit" value="Delete {{ object.name }}">
-    <a href="{% url 'patient_list' %}">Cancel</a>
+    <a href="{% url 'patient_detail' object.id %}">Cancel</a>
 </form>
 
 {% endblock %}
