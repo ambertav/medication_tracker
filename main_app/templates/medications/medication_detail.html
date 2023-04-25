@@ -11,6 +11,8 @@
         <h1>{{ medication.name.capitalize }}</h1>
         <p>{{ medication.day_supply }}</p>
         <p>Belongs to: {{ medication.patient }}</p>
+        <a href="{% url 'medication_update' medication.id %}">Update Medication</a>
+        <a href=""></a>
     </div>
     <div>
         {% for dose in medication.dose_set.all %}

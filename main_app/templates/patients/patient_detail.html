@@ -14,6 +14,8 @@
                 <p>{{ patient.species }}</p>
                 <p>{{ patient.dob }}</p>
             </div>
+            <a href="{% url 'patient_update' patient.id %}">Update Patient</a>
+            <a href="{% url 'patient_delete' patient.id %}">Delete Patient</a>
 
             <div>
                 <h1>Medications</h1>

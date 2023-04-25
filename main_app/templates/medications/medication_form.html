@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
 
 {% block title %}
+    {% if object %}
+        <title>Update Medication</title>
+    {% else %}
     <title>Add a Medication</title>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
+    {% if object %}
+    <h1>Update {{ object.name }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Update {{ object.name }}">
+    </form>
+    {% else %}
         <h1>Add a Medication</h1>
     <form method="POST">
         {% csrf_token %}
         {{ med_form }}
-        {{ dose_form }}
-        <input type="submit" value="Submit">
-    </form>
+            {{ dose_form }}
+            <input type="submit" value="Submit">
+        </form>
+        {% endif %}
 {% endblock %}

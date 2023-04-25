@@ -25,6 +25,9 @@ class Medication (models.Model) :
 
     def __str__ (self) :
         return self.name
+    
+    def get_absolute_url (self) :
+        return reverse('medication_detail', kwargs={'medication_id':self.id})
 
 class Dose (models.Model) :
     amount = models.DecimalField(max_digits=10, decimal_places=2)

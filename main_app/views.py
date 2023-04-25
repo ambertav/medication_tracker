@@ -110,3 +110,10 @@ def dose_create (request, medication_id) :
         dose_form.save()
 
     return redirect('medication_detail', medication_id=medication_id)
+
+class MedicationUpdate (LoginRequiredMixin, UpdateView) :
+    fields = ('name', 'day_supply')
+    template_name = 'medications/medication_form.html'
+
+    def get_queryset (self) :
+        return Medication.objects.filter(user=self.request.user)

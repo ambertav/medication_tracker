@@ -12,6 +12,7 @@ urlpatterns = [
     path('medications/<int:medication_id>/dose/create/', views.dose_create, name='dose_create'),
     path('medications/<int:medication_id>/', views.medication_detail, name='medication_detail'),
     path('medications/create/', views.medication_create, name='medication_create'),
+    path('medications/<int:pk>/update/', views.MedicationUpdate.as_view(), name='medication_update'),
 
 
     path('accounts/signup/', views.signup, name='signup'),
