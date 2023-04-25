@@ -70,6 +70,15 @@ class PatientDelete (LoginRequiredMixin, DeleteView) :
     
 
 # medication views
+
+@login_required
+def medication_detail (request, medication_id) :
+    medication = Medication.objects.filter(user=request.user).get(id=medication_id)
+    return render(request, 'medications/medication_detail.html', {
+        'medication': medication
+    })
+
+@login_required
 def medication_create (request) :
     # handling POST request
     if request.method == 'POST' :
