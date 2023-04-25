@@ -74,8 +74,10 @@ class PatientDelete (LoginRequiredMixin, DeleteView) :
 @login_required
 def medication_detail (request, medication_id) :
     medication = Medication.objects.filter(user=request.user).get(id=medication_id)
+    dose_form = DoseInlineFormset()
     return render(request, 'medications/medication_detail.html', {
-        'medication': medication
+        'medication': medication,
+        'dose_form': dose_form
     })
 
 @login_required
@@ -98,3 +100,13 @@ def medication_create (request) :
         'med_form': med_form,
         'dose_form': dose_form,
     })
+
+@login_required
+def dose_create (request, medication_id) :
+    dose_form = DoseInlineFormset(request.POST)
+
+    if dose_form.is_valid () :
+        dose_form.instance = Medication.objects.get(id=medication_id)
+        dose_form.save()
+
+    return redirect('medication_detail', medication_id=medication_id)

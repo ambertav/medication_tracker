@@ -16,5 +16,10 @@
         {% for dose in medication.dose_set.all %}
             <p>{{ dose.amount }} {{ dose.unit }}</p>
         {% endfor %}
+        <form action="{% url 'dose_create' medication.id %}" method="POST">
+            {% csrf_token %}
+            {{ dose_form }}
+            <input type="submit" value="Add Dose">
+        </form>
     </div>
 {% endblock %}
