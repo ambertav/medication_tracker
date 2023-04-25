@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, ModelFormMixin
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -117,3 +118,13 @@ class MedicationUpdate (LoginRequiredMixin, UpdateView) :
 
     def get_queryset (self) :
         return Medication.objects.filter(user=self.request.user)
+    
+class MedicationDelete (LoginRequiredMixin, DeleteView) :
+    template_name = 'medications/medication_confirm_delete.html'
+
+    def get_queryset (self) :
+        return Medication.objects.filter(user=self.request.user)
+    
+    def get_success_url (self) :
+        patient = self.object.patient 
+        return reverse_lazy('patient_detail', kwargs={'patient_id':patient.id})
