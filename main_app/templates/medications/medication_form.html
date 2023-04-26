@@ -9,20 +9,22 @@
 {% endblock %}
 
 {% block content %}
+<div class="grid-container">
     {% if object %}
-    <h1>Update {{ object.name }}</h1>
+    <h1 class="subheader">Update {{ object.name.capitalize }}</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Update {{ object.name }}">
+        <input type="submit" value="Submit" class="button primary">
     </form>
     {% else %}
-        <h1>Add a Medication</h1>
+        <h1 class="subheader">Add a Medication</h1>
     <form method="POST">
         {% csrf_token %}
         {{ med_form }}
             {{ dose_form }}
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="button primary">
         </form>
         {% endif %}
+</div>
 {% endblock %}

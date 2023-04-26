@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="row grid-container">
+<div class="grid-container">
     <div class="columns-6">
         <h2>{{ patient.name.capitalize }}</h2>
 
@@ -32,6 +32,7 @@
             {% endfor %}
         </div>
     </div>
+    <a href="{% url 'medication_create' %}" class="hollow button secondary small">Add a Medication</a>
 </div>
 
 
