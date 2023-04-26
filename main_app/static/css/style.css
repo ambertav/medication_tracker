@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    flex-grow: 1;
+}
+
+p {
+    padding-inline-start: 1%;
+}
+
+nav {
+    padding: 1%;
+    background-color: #8fbc8f;
+}
+
+footer {
+    padding: 1%;
+    margin-top: 1%;
+    text-align: center;
+    color: white;
+    background-color: #8fbc8f;
+    font-weight: 500;
+}
+
+ul.menu > li > a {
+    color: white;
+    font-weight: 500;
+}
+

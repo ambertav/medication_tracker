@@ -7,16 +7,22 @@
 
 {% block content %}
 
-    <h1>Patients</h1>
+    <h1 class="subheader">Patients</h1>
 
+    <div class="row align-center grid-container">
     {% for patient in patients %}
-        <a href="{% url 'patient_detail' patient.id %}">
-            <div>
-                <h3>{{ patient.name }}</h3>
-                <p>{{ patient.species }}</p>
-                <p>{{ patient.dob }}</p>
+            <div class="card columns align-justify">
+                <a href="{% url 'patient_detail' patient.id %}">
+                    <div class="card-divider">
+                        <h3>{{ patient.name }}</h3>
+                    </div>
+                    <div class="card-section">
+                        <p>{{ patient.species }}</p>
+                        <p>{{ patient.dob }}</p>
+                    </div>
+                </a>
             </div>
-        </a>
-    {% endfor %}
+            {% endfor %}
+        </div>
 
 {% endblock %}

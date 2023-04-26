@@ -1,36 +1,38 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Patient</title>
+<title>Patient</title>
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Patient</h1>
+<div class="row grid-container">
+    <div class="columns-6">
+        <h2>{{ patient.name.capitalize }}</h2>
 
-            <div>
-                <h3>{{ patient.name }}</h3>
-                <p>{{ patient.species }}</p>
-                <p>{{ patient.dob }}</p>
-            </div>
-            <a href="{% url 'patient_update' patient.id %}">Update Patient</a>
-            <a href="{% url 'patient_delete' patient.id %}">Delete Patient</a>
+        <p class="subheader">{{ patient.species }}</p>
+        <p class="subheader">{{ patient.dob }}</p>
+        <a href="{% url 'patient_update' patient.id %}" class="hollow button warning">Update Patient</a>
+        <a href="{% url 'patient_delete' patient.id %}" class="hollow button alert">Delete Patient</a>
+    </div>
 
-            <div>
-                <h1>Medications</h1>
-                <ul>
-                    {% for medication in patient.medication_set.all %}
-                    <a href="{% url 'medication_detail' medication.id %}">
-                        <li>
-                            <h3>{{ medication.name }}</h3>
-                            {% for dose in medication.dose_set.all %}
-                            <p>{{ dose.amount }} {{ dose.unit }}</p>
-                            {% endfor %}
-                        </li>
-                    </a>
-                    {% endfor %}
-                </ul>
-            </div>
+    <div class="columns-6">
+        <h3 class="subheader">Medications</h3>
+        {% for medication in patient.medication_set.all %}
+        <div class="card">
+            <a href="{% url 'medication_detail' medication.id %}">
+                <div class="card-divider">
+                    <h5>{{ medication.name.capitalize }}</h5>
+                </div>
+                {% for dose in medication.dose_set.all %}
+                <p>{{ dose.amount }} {{ dose.unit }} at {{ dose.time_of_adminstration }}</p>
+                {% endfor %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
