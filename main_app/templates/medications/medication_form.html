@@ -22,7 +22,10 @@
     <form method="POST">
         {% csrf_token %}
         {{ med_form }}
-            {{ dose_form }}
+            <h4 class="subheader">Add Dosing Information</h4>
+            <div class="grid-container small">
+                {{ dose_form }}
+            </div>
             <input type="submit" value="Submit" class="button primary">
         </form>
         {% endif %}

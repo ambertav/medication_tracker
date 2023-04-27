@@ -6,34 +6,41 @@
 
 
 {% block content %}
-
-<div class="grid-container">
-    <div class="columns-6">
+    <div class="grid-y grid-padding-y medium-grid-frame">
         <h2>{{ patient.name.capitalize }}</h2>
-
-        <p class="subheader">{{ patient.species }}</p>
-        <p class="subheader">{{ patient.dob }}</p>
-        <a href="{% url 'patient_update' patient.id %}" class="hollow button warning">Update Patient</a>
-        <a href="{% url 'patient_delete' patient.id %}" class="hollow button alert">Delete Patient</a>
-    </div>
-
-    <div class="columns-6">
-        <h3 class="subheader">Medications</h3>
-        {% for medication in patient.medication_set.all %}
-        <div class="card">
-            <a href="{% url 'medication_detail' medication.id %}">
-                <div class="card-divider">
-                    <h5>{{ medication.name.capitalize }}</h5>
+        <div class="grid-x grid-padding-x">
+            <div class="cell medium-8">
+                    <p class="subheader">{{ patient.species }}</p>
+                    <p class="subheader">{{ patient.dob }}</p>
+                    <a href="{% url 'patient_update' patient.id %}" class="hollow button warning">Update Patient</a>
+                    <br>
+                    <a href="{% url 'patient_delete' patient.id %}" class="hollow button alert">Delete Patient</a>
+            </div>
+        </div>
+        <div class="cell small-offset-5 medium-6">
+            <div class="grid-y medium-grid-frame">
+                <h3 class="subheader">Medications</h3>
+                <div class="cell medium-8 medium-cell-block">
+                    {% for medication in patient.medication_set.all %}
+                    <div class="card">
+                        <a href="{% url 'medication_detail' medication.id %}">
+                            <div class="card-divider">
+                                <h5>{{ medication.name.capitalize }}</h5>
+                            </div>
+                            {% for dose in medication.dose_set.all %}
+                            <p>{{ dose.amount }} {{ dose.unit }} at {{ dose.time_of_administration }}</p>
+                            {% endfor %}
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% for dose in medication.dose_set.all %}
-                <p>{{ dose.amount }} {{ dose.unit }} at {{ dose.time_of_adminstration }}</p>
-                {% endfor %}
-            </a>
-            {% endfor %}
+            </div>
+        </div>
+        <div class="grid-x small-offset-5">
+            <a href="{% url 'medication_create' %}" class="hollow button secondary small">Add a Medication</a>
         </div>
     </div>
-    <a href="{% url 'medication_create' %}" class="hollow button secondary small">Add a Medication</a>
-</div>
+    
 
 
 {% endblock %}

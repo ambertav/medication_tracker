@@ -43,15 +43,19 @@
         </ul>
     </nav>
     <main>
-        {% block content %}
-        {% endblock %}
+        <div class="center">
+            <div class="grid-container">                
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
     </main>
-    <footer>
-        <div>
+    <div class="cell shrink footer">
+    <footer class="text-center">
             <span>Copyright &copy; All Rights Reserved</span>
             <br>
             <span>Medication Tracker {% now 'Y' %}</span>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </body>
 </html>

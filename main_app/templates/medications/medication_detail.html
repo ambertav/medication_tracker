@@ -9,15 +9,19 @@
 {% block content %}
 <div class="grid-container">
     <div>
-        <h1>{{ medication.name.capitalize }}</h1>
-        <p>{{ medication.day_supply }}</p>
-        <p>Belongs to: {{ medication.patient }}</p>
+        <h1>{{ medication.name }}</h1>
+        <p>Days Remaining: {{ medication.day_supply }}</p>
+        <p>Refills Remaining: {{ medication.refills }}</p>
+        <a href="{% url 'patient_detail' medication.patient.id %}">
+            <p>Patient: {{ medication.patient }}</p>
+        </a>
         <a href="{% url 'medication_update' medication.id %}" class="hollow button warning">Update Medication</a>
         <a href="{% url 'medication_delete' medication.id %}" class="hollow button alert">Delete Medication</a>
     </div>
     <div>
+        <h4 class="subheader">Dosing Information</h4>
         {% for dose in medication.dose_set.all %}
-            <p>{{ dose.amount }} {{ dose.unit }}</p>
+            <p class="cell">{{ dose.amount }} {{ medication.unit }} at {{ dose.time_of_administration }}</p>
             <a href="{% url 'dose_delete' medication.id dose.id %}" class="button alert tiny">Delete Dose</a>
         {% endfor %}
 

@@ -11,15 +11,19 @@
 {% block content %}
 <div class="grid-container">
     {% if object %}
-        <h1 class="subheader">Update {{ object.name.capitalize }}</h1>
+        <h1 class="subheader large-offset-1">Update {{ object.name.capitalize }}</h1>
     {% else %}
-        <h1 class="subheader">Add a Patient</h1>
+        <h1 class="subheader large-offset-1">Add a Patient</h1>
     {% endif %}
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" class="button primary">
-    </form>
+    <div class="grid-x">
+        <div class="medium-4 large-offset-3 cell">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit" class="button primary">
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
