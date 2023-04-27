@@ -4,6 +4,6 @@ from .models import Medication, Dose
 class MedForm (ModelForm) :
     class Meta :
         model = Medication
-        fields = ('name', 'day_supply', 'is_active', 'patient')
+        exclude = ('is_active', 'inactive_date', 'user')
 
 DoseInlineFormset = inlineformset_factory(Medication, Dose, exclude=('medication',), extra=1, can_delete_extra=False)
