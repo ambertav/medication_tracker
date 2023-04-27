@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Are you sure you want to delete this dose?</title>
+{% endblock %}
+
+
+{% block content %}
+<h1>Are you sure you want to delete {{ dose.amount }} {{ medication.unit }} for {{ medication.name }}?</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="button alert">
+    <a href="{% url 'medication_detail' medication.id %}" class="button secondary">Cancel</a>
+</form>
+
+{% endblock %}

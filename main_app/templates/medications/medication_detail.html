@@ -16,6 +16,17 @@
             <p>Patient: {{ medication.patient }}</p>
         </a>
         <a href="{% url 'medication_update' medication.id %}" class="hollow button warning">Update Medication</a>
+        {% if medication.is_active == True %}
+        <form action="{% url 'medication_inactivate' medication.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Inactivate Medication" class="hollow button secondary">
+        </form>
+        {% else %}
+        <form action="{% url 'medication_activate' medication.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Activate Medication" class="hollow button secondary">
+        </form>
+        {% endif %}
         <a href="{% url 'medication_delete' medication.id %}" class="hollow button alert">Delete Medication</a>
     </div>
     <div>
