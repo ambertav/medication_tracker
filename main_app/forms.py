@@ -6,4 +6,4 @@ class MedForm (ModelForm) :
         model = Medication
         exclude = ('is_active', 'inactive_date', 'user')
 
-DoseInlineFormset = inlineformset_factory(Medication, Dose, exclude=('medication',), extra=1, can_delete_extra=False)
+DoseInlineFormset = inlineformset_factory(Medication, Dose, exclude=('medication', 'is_active', 'inactive_date'), extra=1, can_delete_extra=False)

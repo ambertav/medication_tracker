@@ -39,9 +39,11 @@ class Medication (models.Model) :
 
 class Dose (models.Model) :
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-
-    time_of_adminstration = models.TimeField()
+    time_of_administration = models.TimeField()
     time_interval = models.IntegerField()
+    start_date = models.DateField(default=date.today)
+    is_active = models.BooleanField(default=True)
+    inactive_date = models.DateField(blank=True, null=True)
     medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
 
     def __str__ (self) :
