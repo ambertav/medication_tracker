@@ -19,18 +19,16 @@
         </div>
         <div class="cell small-offset-5 medium-6">
             <div class="grid-y medium-grid-frame">
-                <h3 class="subheader">Current Medications</h3>
+                <h3 class="subheader">Past Medications</h3>
                 <div class="cell medium-8 medium-cell-block">
                     {% for medication in patient.medication_set.all %}
-                    {% if medication.is_active == True %}
+                    {% if medication.is_active == False %}
                     <div class="card">
                         <a href="{% url 'medication_detail' medication.id %}">
                             <div class="card-divider">
                                 <h5>{{ medication.name.capitalize }}</h5>
                             </div>
-                            {% for dose in medication.dose_set.all %}
-                            <p>{{ dose.amount }} {{ medication.unit }} at {{ dose.time_of_administration }}</p>
-                            {% endfor %}
+                            <p>Taken from {{ medication.start_date }} to {{ medication.inactive_date }}</p>
                         </a>
                     </div>
                     {% endif %}
@@ -39,8 +37,7 @@
             </div>
         </div>
         <div class="grid-x grid-margin-x small-offset-5">
-            <a href="{% url 'medication_create' %}" class="hollow button secondary small">Add a Medication</a>
-            <a href="{% url 'patient_history' patient.id %}" class="hollow button secondary small">See Past Medication History</a>
+            <a href="{% url 'patient_detail' patient.id %}" class="hollow button secondary small">See Current Medications</a>
         </div>
     </div>
     

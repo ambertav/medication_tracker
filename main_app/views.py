@@ -49,6 +49,13 @@ def patient_detail (request, patient_id) :
         'date': date,
     })
 
+@login_required
+def patient_history (request, patient_id) :
+    patient = Patient.objects.filter(user=request.user).get(id=patient_id)
+    return render(request, 'patients/patient_history.html', {
+        'patient': patient,
+    })
+
 class PatientCreate (LoginRequiredMixin, CreateView) :
     model = Patient
     fields = ('name', 'species', 'dob')
@@ -100,9 +107,7 @@ def medication_create (request) :
             instance = med_form.save()
             dose_form.instance = instance
             dose_form.save()
-            return redirect('patient_detail', {
-                'patient_id': instance.patient.id
-                })
+            return redirect('patient_detail', patient_id=instance.patient.id)
 
     # handling GET request
     med_form = MedForm()
