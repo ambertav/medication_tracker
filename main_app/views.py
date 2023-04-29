@@ -58,7 +58,7 @@ def patient_history (request, patient_id) :
 
 class PatientCreate (LoginRequiredMixin, CreateView) :
     model = Patient
-    fields = ('name', 'species', 'dob')
+    fields = ('name', 'species', 'dob', 'conditions', 'allergies')
     template_name = 'patients/patient_form.html'
 
     def form_valid (self, form) :
@@ -66,7 +66,7 @@ class PatientCreate (LoginRequiredMixin, CreateView) :
         return super().form_valid(form)
 
 class PatientUpdate (LoginRequiredMixin, UpdateView) :
-    fields = ('name', 'species', 'dob')
+    fields = ('name', 'species', 'dob', 'conditions', 'allergies')
     template_name = 'patients/patient_form.html'
 
     def get_queryset (self) :

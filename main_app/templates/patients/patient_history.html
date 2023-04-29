@@ -6,41 +6,60 @@
 
 
 {% block content %}
-    <div class="grid-y grid-padding-y medium-grid-frame">
-        <h2>{{ patient.name.capitalize }}</h2>
-        <div class="grid-x grid-padding-x">
-            <div class="cell medium-8">
-                    <p class="subheader">{{ patient.species }}</p>
-                    <p class="subheader">{{ patient.dob }}</p>
-                    <a href="{% url 'patient_update' patient.id %}" class="hollow button warning">Update Patient</a>
-                    <br>
-                    <a href="{% url 'patient_delete' patient.id %}" class="hollow button alert">Delete Patient</a>
-            </div>
-        </div>
-        <div class="cell small-offset-5 medium-6">
-            <div class="grid-y medium-grid-frame">
-                <h3 class="subheader">Past Medications</h3>
-                <div class="cell medium-8 medium-cell-block">
-                    {% for medication in patient.medication_set.all %}
-                    {% if medication.is_active == False %}
-                    <div class="card">
-                        <a href="{% url 'medication_detail' medication.id %}">
-                            <div class="card-divider">
-                                <h5>{{ medication.name.capitalize }}</h5>
-                            </div>
-                            <p>Taken from {{ medication.start_date }} to {{ medication.inactive_date }}</p>
-                        </a>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="grid-x grid-margin-x small-offset-5">
-            <a href="{% url 'patient_detail' patient.id %}" class="hollow button secondary small">See Current Medications</a>
+<div class="grid-y grid-padding-y medium-grid-frame">
+    <h2>{{ patient.name.capitalize }}</h2>
+    <div class="grid-x grid-padding-x">
+        <div class="cell medium-8">
+            <p class="subheader">{{ patient.species }}</p>
+            <p class="subheader">{{ patient.dob }}</p>
+            <ul class="subheader no-bullet">Conditions:
+                {% if patient.conditions %}
+                {% for condition in patient.conditions %}
+                <li>{{ condition }}</li>
+                {% endfor %}
+                {% else %}
+                <li>None</li>
+                {% endif %}
+            </ul>
+            <ul class="subheader no-bullet">Allergies:
+                {% if patient.allergies %}
+                {% for allergy in patient.allergies %}
+                <li>{{ allergy }}</li>
+                {% endfor %}
+                {% else %}
+                <li>None</li>
+                {% endif %}
+            </ul>
+            <a href="{% url 'patient_update' patient.id %}" class="hollow button warning">Update Patient</a>
+            <br>
+            <a href="{% url 'patient_delete' patient.id %}" class="hollow button alert">Delete Patient</a>
         </div>
     </div>
-    
+    <div class="cell small-offset-5 medium-6">
+        <div class="grid-y medium-grid-frame">
+            <h3 class="subheader">Past Medications</h3>
+            <div class="cell medium-8 medium-cell-block">
+                {% for medication in patient.medication_set.all %}
+                {% if medication.is_active == False %}
+                <div class="card">
+                    <a href="{% url 'medication_detail' medication.id %}">
+                        <div class="card-divider">
+                            <h5>{{ medication.name.capitalize }}</h5>
+                        </div>
+                        <p>Taken from {{ medication.start_date }} to {{ medication.inactive_date }}</p>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="grid-x grid-margin-x small-offset-5">
+        <a href="{% url 'patient_detail' patient.id %}" class="hollow button secondary small">See Current
+            Medications</a>
+    </div>
+</div>
+
 
 
 {% endblock %}
