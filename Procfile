@@ -1,0 +1,1 @@
+web: gunicorn medication_tracker.wsgi
