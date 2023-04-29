@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'medication_tracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'medication_tracker',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['NAME'],
+        'USER': os.environ['USER'],
+        'PASSWORD': os.environ['PASSWORD'],
+        'HOST': 'db.bit.io',
+        'PORT': '5432',
     }
 }
 
