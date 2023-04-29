@@ -14,6 +14,32 @@ A web application that allows users to manage both current and past logs of medi
 
 ## Screenshots
 
+
+![patients index](https://i.imgur.com/7z5mP34.png)
+<br>
+<br>
+<br>
+
+*Patient's Cureent Medications*
+<br>
+
+![patients detail](https://i.imgur.com/TpcFaej.png)
+
+<br>
+<br>
+<br>
+
+*Patient's Medication History*
+<br>
+
+![patients history](https://i.imgur.com/JqcigrG.png)
+
+<br>
+<br>
+<br>
+
+![medication detail](https://i.imgur.com/ta8kEDz.png)
+
 ## Getting Started
 
 Create an account and start managing your medications!
